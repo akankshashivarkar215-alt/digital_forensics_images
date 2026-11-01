@@ -1,0 +1,45 @@
+{
+  "analysis_id": "d232813f46304b2a95e7c88de9f9a6b1",
+  "case_id": "DF-2026-D232813F",
+  "filename": "csdf image.jpg",
+  "analysis_time": "2026-10-11T14:47:26.829131",
+  "metadata": {
+    "format": "JPEG",
+    "mode": "RGB",
+    "width": 612,
+    "height": 408,
+    "file_size_bytes": 46300,
+    "file_size_kb": 45.21,
+    "software_detected": false,
+    "exif": {
+      "XResolution": "300.0",
+      "YResolution": "300.0",
+      "ImageDescription": "State Garden Show 2021 (State Garden Show in Ingolstadt)"
+    }
+  },
+  "hashes": {
+    "md5": "c1c01cce7103c9b71c054d567fe81278",
+    "sha256": "8417ac1615fb22baeeb51682d58c04c57d5751aee17bd7649e08d29ffbe8a407"
+  },
+  "ela": {
+    "image_url": "/results/d232813f46304b2a95e7c88de9f9a6b1_ela.jpg",
+    "score": 0.82
+  },
+  "copy_move": {
+    "possible_forgery": false,
+    "matches": 0,
+    "message": "No strong copy-move indicator detected. 0 verified matching feature pairs found."
+  },
+  "copy_move_image_url": "/results/d232813f46304b2a95e7c88de9f9a6b1_copy_move.jpg",
+  "noise": {
+    "possible_inconsistency": true,
+    "score": 2.08,
+    "mean_noise": 2.06,
+    "suspicious_blocks": 18,
+    "message": "Noise-level inconsistency detected in some image regions."
+  },
+  "noise_image_url": "/results/d232813f46304b2a95e7c88de9f9a6b1_noise.jpg",
+  "forensic_score": 20,
+  "risk": "LOW",
+  "conclusion": "No strong manipulation indicators detected."
+}

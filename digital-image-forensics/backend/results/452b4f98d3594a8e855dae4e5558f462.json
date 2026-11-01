@@ -1,0 +1,41 @@
+{
+  "analysis_id": "452b4f98d3594a8e855dae4e5558f462",
+  "case_id": "DF-2026-452B4F98",
+  "filename": "palsar_548.png",
+  "analysis_time": "2026-10-08T11:49:16.378018",
+  "metadata": {
+    "format": "PNG",
+    "mode": "L",
+    "width": 256,
+    "height": 256,
+    "file_size_bytes": 1399,
+    "file_size_kb": 1.37,
+    "software_detected": false,
+    "exif": {}
+  },
+  "hashes": {
+    "md5": "e7bf09ddf8a5cb4a9acea50cdcc2f3fb",
+    "sha256": "7db7d5d79f224596eba8084cc407c91e04379f1e6ccd9f0efb5c66505db24917"
+  },
+  "ela": {
+    "image_url": "/results/452b4f98d3594a8e855dae4e5558f462_ela.jpg",
+    "score": 0.06
+  },
+  "copy_move": {
+    "possible_forgery": false,
+    "matches": 0,
+    "message": "No strong copy-move indicator detected. 0 verified matching feature pairs found."
+  },
+  "copy_move_image_url": "/results/452b4f98d3594a8e855dae4e5558f462_copy_move.jpg",
+  "noise": {
+    "possible_inconsistency": true,
+    "score": 3.72,
+    "mean_noise": 2.47,
+    "suspicious_blocks": 4,
+    "message": "Noise-level inconsistency detected in some image regions."
+  },
+  "noise_image_url": "/results/452b4f98d3594a8e855dae4e5558f462_noise.jpg",
+  "forensic_score": 20,
+  "risk": "LOW",
+  "conclusion": "No strong manipulation indicators detected."
+}

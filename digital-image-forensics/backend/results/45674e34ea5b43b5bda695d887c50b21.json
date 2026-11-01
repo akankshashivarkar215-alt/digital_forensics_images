@@ -1,0 +1,41 @@
+{
+  "analysis_id": "45674e34ea5b43b5bda695d887c50b21",
+  "case_id": "DF-2026-45674E34",
+  "filename": "sentinel_4.png",
+  "analysis_time": "2026-10-07T21:36:55.687247",
+  "metadata": {
+    "format": "PNG",
+    "mode": "RGB",
+    "width": 256,
+    "height": 256,
+    "file_size_bytes": 142816,
+    "file_size_kb": 139.47,
+    "software_detected": false,
+    "exif": {}
+  },
+  "hashes": {
+    "md5": "8536f9279aaf7abf66b545b9106c164d",
+    "sha256": "7d8086f921df2ee5d4b4219cbfbe3bd14c0fd9f8f7dd72af540435e7977ae87e"
+  },
+  "ela": {
+    "image_url": "/results/45674e34ea5b43b5bda695d887c50b21_ela.jpg",
+    "score": 1.06
+  },
+  "copy_move": {
+    "possible_forgery": false,
+    "matches": 0,
+    "message": "No strong copy-move indicator detected. 0 verified matching feature pairs found."
+  },
+  "copy_move_image_url": "/results/45674e34ea5b43b5bda695d887c50b21_copy_move.jpg",
+  "noise": {
+    "possible_inconsistency": true,
+    "score": 1.95,
+    "mean_noise": 7.41,
+    "suspicious_blocks": 6,
+    "message": "Noise-level inconsistency detected in some image regions."
+  },
+  "noise_image_url": "/results/45674e34ea5b43b5bda695d887c50b21_noise.jpg",
+  "forensic_score": 20,
+  "risk": "LOW",
+  "conclusion": "No strong manipulation indicators detected."
+}

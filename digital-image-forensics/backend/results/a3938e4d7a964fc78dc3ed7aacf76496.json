@@ -1,0 +1,30 @@
+{
+  "analysis_id": "a3938e4d7a964fc78dc3ed7aacf76496",
+  "filename": "png1.png",
+  "metadata": {
+    "format": "PNG",
+    "mode": "RGB",
+    "width": 1536,
+    "height": 1024,
+    "file_size_bytes": 2557155,
+    "file_size_kb": 2497.22,
+    "software_detected": false,
+    "exif": {}
+  },
+  "hashes": {
+    "md5": "575b26d464b25ea2077ecd31a5a45480",
+    "sha256": "d54de55f85a611ef8157fe3bd93150434894a94a070d76e4c6130d74f446d3ad"
+  },
+  "ela": {
+    "image_url": "/results/a3938e4d7a964fc78dc3ed7aacf76496_ela.jpg",
+    "score": 0.99
+  },
+  "copy_move": {
+    "possible_forgery": false,
+    "matches": 0,
+    "message": "No strong copy-move indicator detected by this basic feature test."
+  },
+  "copy_move_image_url": "/results/a3938e4d7a964fc78dc3ed7aacf76496_copy_move.jpg",
+  "conclusion": "No strong manipulation indicators detected",
+  "risk": "LOW"
+}

@@ -1,0 +1,30 @@
+{
+  "analysis_id": "e738c85ac8a74f478bd3a0b8133903ea",
+  "filename": "193_F.png",
+  "metadata": {
+    "format": "PNG",
+    "mode": "RGB",
+    "width": 512,
+    "height": 512,
+    "file_size_bytes": 447391,
+    "file_size_kb": 436.91,
+    "software_detected": false,
+    "exif": {}
+  },
+  "hashes": {
+    "md5": "4d2fc029d7cec93ec66f763ccf99fcab",
+    "sha256": "22d4818f16eb8a3aeb067b71bbd48fa6cd7f91fb4ee0c8e0843ba03cea3d6db9"
+  },
+  "ela": {
+    "image_url": "/results/e738c85ac8a74f478bd3a0b8133903ea_ela.jpg",
+    "score": 0.93
+  },
+  "copy_move": {
+    "possible_forgery": true,
+    "matches": 238,
+    "message": "Possible copy-move manipulation detected. 238 verified matching feature pairs found."
+  },
+  "copy_move_image_url": "/results/e738c85ac8a74f478bd3a0b8133903ea_copy_move.jpg",
+  "conclusion": "Potential manipulation indicators detected",
+  "risk": "MEDIUM"
+}

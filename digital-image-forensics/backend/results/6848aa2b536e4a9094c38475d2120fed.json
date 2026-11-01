@@ -1,0 +1,41 @@
+{
+  "analysis_id": "6848aa2b536e4a9094c38475d2120fed",
+  "case_id": "DF-2026-6848AA2B",
+  "filename": "194_F.png",
+  "analysis_time": "2026-10-09T20:11:19.399918",
+  "metadata": {
+    "format": "PNG",
+    "mode": "RGB",
+    "width": 512,
+    "height": 512,
+    "file_size_bytes": 673969,
+    "file_size_kb": 658.17,
+    "software_detected": false,
+    "exif": {}
+  },
+  "hashes": {
+    "md5": "1c8e4619bc886b720671cbb2e52cdd72",
+    "sha256": "664829633477764ee259395853f5cc47b1b016ff98c4c83b0420af8702d4f642"
+  },
+  "ela": {
+    "image_url": "/results/6848aa2b536e4a9094c38475d2120fed_ela.jpg",
+    "score": 1.65
+  },
+  "copy_move": {
+    "possible_forgery": false,
+    "matches": 0,
+    "message": "No strong copy-move indicator detected. 0 verified matching feature pairs found."
+  },
+  "copy_move_image_url": "/results/6848aa2b536e4a9094c38475d2120fed_copy_move.jpg",
+  "noise": {
+    "possible_inconsistency": false,
+    "score": 4.79,
+    "mean_noise": 18.85,
+    "suspicious_blocks": 0,
+    "message": "No strong noise inconsistency detected."
+  },
+  "noise_image_url": "/results/6848aa2b536e4a9094c38475d2120fed_noise.jpg",
+  "forensic_score": 0,
+  "risk": "LOW",
+  "conclusion": "No strong manipulation indicators detected."
+}

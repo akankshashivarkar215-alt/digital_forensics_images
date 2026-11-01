@@ -1,0 +1,30 @@
+{
+  "analysis_id": "ca7930c989bb4cbfb4f3e55d512f3d38",
+  "filename": "WhatsApp Image 2026-10-04 at 2.45.04 PM.jpeg",
+  "metadata": {
+    "format": "JPEG",
+    "mode": "RGB",
+    "width": 1229,
+    "height": 1564,
+    "file_size_bytes": 815740,
+    "file_size_kb": 796.62,
+    "software_detected": false,
+    "exif": {}
+  },
+  "hashes": {
+    "md5": "fb83ada650b9ec958042fbbbe441ada8",
+    "sha256": "27fefd6af58b67f1c8db7e4b1818e46a8c52652f7595b94f77fdf6b1db201c07"
+  },
+  "ela": {
+    "image_url": "/results/ca7930c989bb4cbfb4f3e55d512f3d38_ela.jpg",
+    "score": 0.37
+  },
+  "copy_move": {
+    "possible_forgery": false,
+    "matches": 0,
+    "message": "No strong copy-move indicator detected by this basic feature test."
+  },
+  "copy_move_image_url": "/results/ca7930c989bb4cbfb4f3e55d512f3d38_copy_move.jpg",
+  "conclusion": "No strong manipulation indicators detected",
+  "risk": "LOW"
+}

@@ -1,0 +1,41 @@
+{
+  "analysis_id": "a202e5757cb142a3b5aafc29c4d7c398",
+  "case_id": "DF-2026-A202E575",
+  "filename": "test_image_copy_move_forged.png",
+  "analysis_time": "2026-10-11T14:56:51.433065",
+  "metadata": {
+    "format": "PNG",
+    "mode": "RGB",
+    "width": 640,
+    "height": 480,
+    "file_size_bytes": 606422,
+    "file_size_kb": 592.21,
+    "software_detected": false,
+    "exif": {}
+  },
+  "hashes": {
+    "md5": "491d227aebf4cb11d43ec74a08160f52",
+    "sha256": "2ff97d91f4882c25fe6a95451eaf8b1be7c71cc0fb465a9110f77e407d95b596"
+  },
+  "ela": {
+    "image_url": "/results/a202e5757cb142a3b5aafc29c4d7c398_ela.jpg",
+    "score": 2.01
+  },
+  "copy_move": {
+    "possible_forgery": false,
+    "matches": 0,
+    "message": "No strong copy-move indicator detected. 0 verified matching feature pairs found."
+  },
+  "copy_move_image_url": "/results/a202e5757cb142a3b5aafc29c4d7c398_copy_move.jpg",
+  "noise": {
+    "possible_inconsistency": true,
+    "score": 0.8,
+    "mean_noise": 3.2,
+    "suspicious_blocks": 18,
+    "message": "Noise-level inconsistency detected in some image regions."
+  },
+  "noise_image_url": "/results/a202e5757cb142a3b5aafc29c4d7c398_noise.jpg",
+  "forensic_score": 20,
+  "risk": "LOW",
+  "conclusion": "No strong manipulation indicators detected."
+}
