@@ -2,28 +2,36 @@
 import { useState } from "react";
 import "./styles.css";
 
+const API = "http://127.0.0.1:8000";
+
 function App() {
   const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState("");
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState("ela");
   const [error, setError] = useState("");
 
-  const API = "http://127.0.0.1:8000";
-
   function handleFile(event) {
-    setFile(event.target.files[0]);
+    const selected = event.target.files[0];
+
+    if (!selected) return;
+
+    setFile(selected);
+    setPreview(URL.createObjectURL(selected));
     setResult(null);
     setError("");
   }
 
   async function analyzeImage() {
     if (!file) {
-      setError("Please select an image.");
+      setError("Please select an image first.");
       return;
     }
 
     setLoading(true);
     setError("");
+    setResult(null);
 
     try {
       const formData = new FormData();
@@ -37,12 +45,12 @@ function App() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.detail || "Analysis failed.");
+        throw new Error(data.detail || "Analysis failed");
       }
 
       setResult(data);
     } catch (err) {
-      setError(err.message || "Could not connect to the server.");
+      setError(err.message || "Backend connection failed.");
     }
 
     setLoading(false);
@@ -60,7 +68,7 @@ function App() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.detail || "Report generation failed.");
+        throw new Error(data.detail || "Report generation failed");
       }
 
       if (data.download_url) {
@@ -70,169 +78,341 @@ function App() {
 
         window.open(url, "_blank");
       } else {
-        setError("Report link was not returned.");
+        setError("Report link not found.");
       }
     } catch (err) {
-      setError(err.message || "Could not generate report.");
+      setError(err.message);
     }
   }
 
-  function value(item) {
-    return item === undefined || item === null || item === ""
+  function getValue(value) {
+    return value === null || value === undefined || value === ""
       ? "Not available"
-      : String(item);
+      : value;
+  }
+
+  function getImage() {
+    if (!result) return "";
+
+    if (activeTab === "ela") {
+      return result.ela?.image_url;
+    }
+
+    if (activeTab === "noise") {
+      return result.noise_image_url;
+    }
+
+    if (activeTab === "copy") {
+      return result.copy_move_image_url;
+    }
+
+    return "";
+  }
+
+  function getScore() {
+    const score = Number(result?.forensic_score);
+    return Number.isFinite(score) ? Math.max(0, Math.min(100, score)) : 0;
+  }
+
+  function getRisk() {
+    return String(result?.risk || "Not available");
   }
 
   return (
-    <div className="container">
-      <header>
-        <h1>Digital Image Forensics Tool</h1>
-        <p>Image analysis and forgery detection</p>
+    <div className="app">
+
+      <header className="topbar">
+        <div className="brand">
+          <span className="brand-icon">⌕</span>
+          <h2>PixelProbe</h2>
+        </div>
+
+        <nav>
+          <a className="active" href="#analyze">Analyze</a>
+          <a href="#metadata">Case files</a>
+          <a href="#report">Reports</a>
+          <a href="#about">Settings</a>
+        </nav>
+
+        <div className="case-number">
+          {result ? `Case #${getValue(result.case_id)}` : "Image Forensics"}
+        </div>
       </header>
 
-      <nav>
-        <a href="#home">Home</a>
-        <a href="#results">Results</a>
-        <a href="#about">About</a>
-      </nav>
+      <main className="dashboard">
 
-      <section className="box" id="home">
-        <h2>Upload Image</h2>
-        <p>Select an image to analyze.</p>
+        {/* LEFT SIDE */}
 
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleFile}
-        />
+        <aside className="left-column">
 
-        {file && <p>Selected file: {file.name}</p>}
+          <section className="panel upload-panel" id="analyze">
+            <h3>Input image</h3>
 
-        <button onClick={analyzeImage} disabled={loading}>
-          {loading ? "Please wait..." : "Analyze Image"}
-        </button>
+            <label className="upload-area">
+              <span className="upload-symbol">↑</span>
+              <strong>Drop a file here</strong>
+              <span>or</span>
+              <span className="browse-button">Browse files</span>
+              <small>JPEG, PNG, TIFF up to 25 MB</small>
 
-        {error && <p className="error">{error}</p>}
-      </section>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFile}
+              />
+            </label>
 
-      {result && (
-        <div id="results">
-          <section className="box">
-            <h2>Analysis Result</h2>
+            {file && (
+              <div className="selected-file">
+                <img src={preview} alt="Selected image" />
+                <div>
+                  <strong>{file.name}</strong>
+                  <small>{(file.size / 1024 / 1024).toFixed(2)} MB</small>
+                </div>
+              </div>
+            )}
+          </section>
+
+          <section className="panel methods-panel">
+            <h3>Methods</h3>
+
+            <div className="method">
+              <span>✓</span> Error level analysis
+            </div>
+
+            <div className="method">
+              <span>✓</span> EXIF / Metadata
+            </div>
+
+            <div className="method">
+              <span>✓</span> Noise analysis
+            </div>
+
+            <div className="method">
+              <span>✓</span> Copy-move detection
+            </div>
+
+            <button
+              className="analyze-button"
+              onClick={analyzeImage}
+              disabled={loading}
+            >
+              {loading ? "Analyzing..." : "Run analysis"}
+            </button>
+
+            {error && <p className="error">{error}</p>}
+          </section>
+
+        </aside>
+
+        {/* CENTER SIDE */}
+
+        <section className="center-column">
+
+          <section className="panel image-panel">
+            <div className="tab-row">
+              <button
+                className={activeTab === "ela" ? "tab selected" : "tab"}
+                onClick={() => setActiveTab("ela")}
+              >
+                Original vs ELA
+              </button>
+
+              <button
+                className={activeTab === "noise" ? "tab selected" : "tab"}
+                onClick={() => setActiveTab("noise")}
+              >
+                Noise
+              </button>
+
+              <button
+                className={activeTab === "copy" ? "tab selected" : "tab"}
+                onClick={() => setActiveTab("copy")}
+              >
+                Copy-move
+              </button>
+            </div>
+
+            <div className="image-comparison">
+              <div>
+                {preview ? (
+                  <img src={preview} alt="Original image" />
+                ) : (
+                  <div className="empty-image">Original image</div>
+                )}
+                <p>Original</p>
+              </div>
+
+              <div>
+                {getImage() ? (
+                  <img
+                    src={`${API}${getImage()}`}
+                    alt="Analysis result"
+                  />
+                ) : (
+                  <div className="empty-image">
+                    {result ? "No result image available" : "Analysis result"}
+                  </div>
+                )}
+                <p>
+                  {activeTab === "ela"
+                    ? "ELA Result"
+                    : activeTab === "noise"
+                    ? "Noise Result"
+                    : "Copy-move Result"}
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section className="panel metadata-panel" id="metadata">
+            <h3>Metadata</h3>
 
             <table>
+              <thead>
+                <tr>
+                  <th>Field</th>
+                  <th>Value</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+
               <tbody>
                 <tr>
-                  <td>File Name</td>
-                  <td>{value(result.filename)}</td>
+                  <td>File name</td>
+                  <td>{getValue(result?.filename)}</td>
+                  <td>-</td>
                 </tr>
+
                 <tr>
-                  <td>Case ID</td>
-                  <td>{value(result.case_id)}</td>
+                  <td>Software</td>
+                  <td>
+                    {getValue(result?.metadata?.software_detected)}
+                  </td>
+                  <td>
+                    {result?.metadata?.software_detected
+                      ? "Detected"
+                      : "Unknown"}
+                  </td>
                 </tr>
+
                 <tr>
-                  <td>Forensic Score</td>
-                  <td>{value(result.forensic_score)}</td>
+                  <td>ELA Score</td>
+                  <td>{getValue(result?.ela?.score)}</td>
+                  <td>-</td>
                 </tr>
+
                 <tr>
-                  <td>Risk Level</td>
-                  <td>{value(result.risk)}</td>
+                  <td>Copy-move matches</td>
+                  <td>{getValue(result?.copy_move?.matches)}</td>
+                  <td>-</td>
                 </tr>
+
                 <tr>
-                  <td>Analysis Time</td>
-                  <td>{value(result.analysis_time)}</td>
-                </tr>
-                <tr>
-                  <td>Conclusion</td>
-                  <td>{value(result.conclusion)}</td>
+                  <td>Suspicious noise blocks</td>
+                  <td>
+                    {getValue(result?.noise?.suspicious_blocks)}
+                  </td>
+                  <td>-</td>
                 </tr>
               </tbody>
             </table>
+          </section>
 
-            <p>
-              Note: Results show possible signs of manipulation.
-              They do not prove that an image is fake.
+          {result && (
+            <section className="panel hashes-panel">
+              <h3>Image Hashes</h3>
+              <p><strong>MD5:</strong> {getValue(result.hashes?.md5)}</p>
+              <p><strong>SHA-256:</strong> {getValue(result.hashes?.sha256)}</p>
+            </section>
+          )}
+
+        </section>
+
+        {/* RIGHT SIDE */}
+
+        <aside className="right-column">
+
+          <section className="panel result-panel">
+            <h3>Result</h3>
+
+            <div
+              className="score-circle"
+              style={{
+                "--score": `${getScore()}%`
+              }}
+            >
+              <div>
+                <strong>{result ? `${getScore()}%` : "--"}</strong>
+                <small>Manipulation score</small>
+              </div>
+            </div>
+
+            <div className="risk-label">
+              {result ? getRisk() : "Waiting for analysis"}
+            </div>
+
+            <p className="conclusion">
+              {result
+                ? getValue(result.conclusion)
+                : "Upload an image and run the analysis to see the result here."}
             </p>
           </section>
 
-          <section className="box">
-            <h2>Metadata</h2>
-            <p>
-              Software Detected:{" "}
-              {value(result.metadata?.software_detected)}
-            </p>
+          <section className="panel findings-panel">
+            <h3>Findings</h3>
+
+            <div className="finding">
+              <span>ELA analysis</span>
+              <strong>{result ? getValue(result.ela?.score) : "-"}</strong>
+            </div>
+
+            <div className="finding">
+              <span>Noise analysis</span>
+              <strong>
+                {result
+                  ? getValue(result.noise?.suspicious_blocks)
+                  : "-"}
+              </strong>
+            </div>
+
+            <div className="finding">
+              <span>Copy-move matches</span>
+              <strong>
+                {result
+                  ? getValue(result.copy_move?.matches)
+                  : "-"}
+              </strong>
+            </div>
+
+            <div className="finding">
+              <span>Software detected</span>
+              <strong>
+                {result
+                  ? getValue(result.metadata?.software_detected)
+                  : "-"}
+              </strong>
+            </div>
           </section>
 
-          <section className="box">
-            <h2>Error Level Analysis (ELA)</h2>
-            <p>ELA Score: {value(result.ela?.score)}</p>
-
-            {result.ela?.image_url && (
-              <img
-                className="analysis-image"
-                src={`${API}${result.ela.image_url}`}
-                alt="ELA analysis"
-              />
-            )}
+          <section className="action-buttons" id="report">
+            <button
+              className="export-button"
+              onClick={downloadReport}
+              disabled={!result}
+            >
+              Export PDF
+            </button>
           </section>
 
-          <section className="box">
-            <h2>Copy-Move Detection</h2>
-            <p>Matches: {value(result.copy_move?.matches)}</p>
-            <p>{value(result.copy_move?.message)}</p>
+        </aside>
 
-            {result.copy_move_image_url && (
-              <img
-                className="analysis-image"
-                src={`${API}${result.copy_move_image_url}`}
-                alt="Copy move analysis"
-              />
-            )}
-          </section>
+      </main>
 
-          <section className="box">
-            <h2>Noise Analysis</h2>
-            <p>
-              Suspicious Blocks:{" "}
-              {value(result.noise?.suspicious_blocks)}
-            </p>
-            <p>{value(result.noise?.message)}</p>
-
-            {result.noise_image_url && (
-              <img
-                className="analysis-image"
-                src={`${API}${result.noise_image_url}`}
-                alt="Noise analysis"
-              />
-            )}
-          </section>
-
-          <section className="box">
-            <h2>Image Hashes</h2>
-            <p>MD5:</p>
-            <p className="hash">{value(result.hashes?.md5)}</p>
-            <p>SHA-256:</p>
-            <p className="hash">{value(result.hashes?.sha256)}</p>
-          </section>
-
-          <button onClick={downloadReport}>
-            Download PDF Report
-          </button>
-        </div>
-      )}
-
-      <section className="box" id="about">
-        <h2>About the Project</h2>
-        <p>
-          This project checks images using metadata, ELA,
-          copy-move detection, noise analysis and hashing.
-          It helps identify possible signs of image editing.
-        </p>
-      </section>
-
-      <footer>
+      <footer id="about">
         Digital Image Forensics Tool | College Project
       </footer>
+
     </div>
   );
 }

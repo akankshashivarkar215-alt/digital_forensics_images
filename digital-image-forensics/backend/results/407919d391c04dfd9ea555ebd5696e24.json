@@ -1,0 +1,41 @@
+{
+  "analysis_id": "407919d391c04dfd9ea555ebd5696e24",
+  "case_id": "DF-2026-407919D3",
+  "filename": "flower_forged_copymove.png",
+  "analysis_time": "2026-11-03T10:53:03.535364",
+  "metadata": {
+    "format": "PNG",
+    "mode": "RGB",
+    "width": 800,
+    "height": 600,
+    "file_size_bytes": 705910,
+    "file_size_kb": 689.37,
+    "software_detected": false,
+    "exif": {}
+  },
+  "hashes": {
+    "md5": "144960fdeb968ece95a9851cd91d4a45",
+    "sha256": "c04b1a4af8991d370ca5b8981b38f375b217377d1b26daad68a20a44c7e524bc"
+  },
+  "ela": {
+    "image_url": "/results/407919d391c04dfd9ea555ebd5696e24_ela.jpg",
+    "score": 1.04
+  },
+  "copy_move": {
+    "possible_forgery": true,
+    "matches": 32,
+    "message": "Possible copy-move manipulation detected. 32 verified matching feature pairs found."
+  },
+  "copy_move_image_url": "/results/407919d391c04dfd9ea555ebd5696e24_copy_move.jpg",
+  "noise": {
+    "possible_inconsistency": true,
+    "score": 0.93,
+    "mean_noise": 1.67,
+    "suspicious_blocks": 16,
+    "message": "Noise-level inconsistency detected in some image regions."
+  },
+  "noise_image_url": "/results/407919d391c04dfd9ea555ebd5696e24_noise.jpg",
+  "forensic_score": 60,
+  "risk": "MEDIUM",
+  "conclusion": "Potential manipulation indicators detected."
+}
